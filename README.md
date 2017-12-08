@@ -1,5 +1,7 @@
 # Challenge 3 Solution #
 
+The code for the challenge can be find [here!](https://github.com/agyimr/bigdata_challenge_3)
+
 In the third challenge, our task was to create a unique hash algorithm for videos, and test the efficiency of the algorithm with the clustering of 9700 videos. These were made from an initial 970 videos, all of which was distorted with different methods in order to get 10 of each. The goal was to get the same videos into the same clusters.
 
 Our approach to the problem was to first create an image of each video and then hash these images. We created this image with averaging all the frames in the video. We basically summed up each pixels red, green and blue values from each frame and in the end divided this matrix with the number of frames. This resulted in the images below (for two videos of the same content, but distorted):
@@ -16,3 +18,12 @@ Now we need to somehow hash these images. We wanted to use k-means to cluster th
 
 ![Hashed images](https://github.com/agyimr/bigdata_challenge_3/blob/master/hashed_images.jpg "Hashed images")
 
+Of course this information is stored in an array with the lengths of 300. The values with the same meaning are always at the same pace. This means the structured is as the following:
+* The first element is the top left pixel's red value
+* The second element is the top left pixel's green value
+* The third element is the top left pixel's blue value
+* the fourth element is is the top row's second element's red value...
+
+This way all the 300 dimension has a meaning, as well as the distance between them. It is important to carry information with the difference for the k-means to work. In other words... The difference of the values in the same place represents the difference of the images (hence the videos). The closer they are, the more similar the videos are and vica versa.
+
+With all that in mind applying k-means clustering (with k = 970 seeds) we get a clustering with a rand index of about **0.697 ~ 0.7**, which can be considered as a pretty good result especially if we take into account that the computational time was only **1 hour** in our 8 core machine. (The hashing part of the program is written in a way to utilise parallel computation to speed up the process)
