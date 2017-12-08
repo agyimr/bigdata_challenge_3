@@ -14,16 +14,17 @@ As we can see the images are similar but it would be great if we could somehow n
 
 The images are really similar now. The only problematic part is the border. We can easily get rid of it by only examining the inner 80% of the picture. Since each image is represented as a numpy array this can be done really easily using built in functionalities of python. 
 
-Now we need to somehow hash these images. We wanted to use k-means to cluster the hashes. This method aligns really well with multi-dimensional values. Therefore what we did was we downscaled the images to a 10*10 pixel size. This way we ended up with 300 values for each image (since 10 * 10 = 100, but we still have the red, green and blue values for each pixels, which results in 300 values overall). This array of values is what we called hash. If we would like to visualize it, these would look like this in the case of the examples above:
+Now we need to somehow hash these images. We wanted to use k-means to cluster the hashes. This method aligns really well with multi-dimensional values. Therefore what we did was we downscaled the images to a 10*10 pixel size. This way we ended up with 300 values for each image (since 10 * 10 = 100, but we still have the red, green and blue values for each pixels, which results in 300 values overall). This array of values is what we called hash. Of course picture worth more than a 1000 words...
 
 ![Hashed images](https://github.com/agyimr/bigdata_challenge_3/blob/master/hashed_images.jpg "Hashed images")
 
-Of course this information is stored in an array with the lengths of 300. The values with the same meaning are always at the same pace. This means the structured is as the following:
+This information is stored in an array with the lengths of 300. The values with the same meaning are always at the same pace. This results in the following structure:
 * The first element is the top left pixel's red value
 * The second element is the top left pixel's green value
 * The third element is the top left pixel's blue value
-* the fourth element is is the top row's second element's red value...
+* the fourth element is is the top row's second element's red value
+* ...
 
-This way all the 300 dimension has a meaning, as well as the distance between them. It is important to carry information with the difference for the k-means to work. In other words... The difference of the values in the same place represents the difference of the images (hence the videos). The closer they are, the more similar the videos are and vica versa.
+This way all the 300 dimensions have a meaning, as well as the distance between them. It is important to carry information with the difference for the k-means to work. In other words... The difference of the values in the same place represents the difference of the images (hence the videos). The closer they are, the more similar the videos are and vica versa.
 
-With all that in mind applying k-means clustering (with k = 970 seeds) we get a clustering with a rand index of about **0.697 ~ 0.7**, which can be considered as a pretty good result especially if we take into account that the computational time was only **1 hour** in our 8 core machine. (The hashing part of the program is written in a way to utilise parallel computation to speed up the process)
+With all that in mind applying k-means clustering (with k = 970 brackets) we get a clustering with a rand index of about **0.697 ~ 0.7**, which can be considered as a pretty good result especially if we take into account that the computational time was only **1 hour** in our 8 core machine. (The hashing part of the program is written in a way to utilise parallel computation to speed up the process)
