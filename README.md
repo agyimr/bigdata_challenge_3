@@ -4,4 +4,4 @@ In the third challenge, our task was to create a unique hash algorithm for video
 
 Our approach to the problem was to first create an image of each video and then hash these images. We created this image with averaging all the frames in the video. We basically summed up each pixels red, green and blue values from each frame and in the end divided this matrix with the number of frames. This results in the images below:
 
-![Averaged image]()
+![Averaged image](https://github.com/agyimr/bigdata_challenge_3/blob/master/test1.jpg "Averaged image")
